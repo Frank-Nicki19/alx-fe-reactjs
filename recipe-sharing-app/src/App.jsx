@@ -1,18 +1,29 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import FavoritesList from './components/FavoritesList';
 import RecommendationsList from './components/RecommendationsList';
+import RecipeDetails from './components/RecipeDetails';
+import DeleteRecipeButton from './components/DeleteRecipeButton';
 
 const App = () => {
   return (
-    <div>
-      <h1>Recipe Sharing App</h1>
-      <AddRecipeForm />
-      <RecipeList />
-      <FavoritesList />
-      <RecommendationsList />
-    </div>
+    <Router>
+      <div>
+        <h1>Recipe Sharing App</h1>
+        <Routes>
+          <Route path="/" element={<>
+            <AddRecipeForm />
+            <RecipeList />
+            <FavoritesList />
+            <RecommendationsList />
+            <DeleteRecipeButton />
+          </>} />
+          <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
