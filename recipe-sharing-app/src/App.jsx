@@ -6,12 +6,14 @@ import FavoritesList from './components/FavoritesList';
 import RecommendationsList from './components/RecommendationsList';
 import RecipeDetails from './components/RecipeDetails';
 import DeleteRecipeButton from './components/DeleteRecipeButton';
+import SearchBar from './components/SearchBar';
 
 const App = () => {
   return (
     <Router>
       <div>
         <h1>Recipe Sharing App</h1>
+        <SearchBar />
         <Routes>
           <Route path="/" element={<>
             <AddRecipeForm />
