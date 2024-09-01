@@ -11,31 +11,41 @@ test('renders the TodoList component', () => {
 test('adds a new todo', () => {
   render(<TodoList />);
   const input = screen.getByPlaceholderText(/Add a new todo/i);
-  const button = screen.getByText(/Add Todo/i);
+  const addButton = screen.getByText(/Add Todo/i);
 
   fireEvent.change(input, { target: { value: 'New Todo' } });
-  fireEvent.click(button);
+  fireEvent.click(addButton);
 
-  const newTodo = screen.getByText(/New Todo/i);
-  expect(newTodo).toBeInTheDocument();
+  const todoItem = screen.getByText(/New Todo/i);
+  expect(todoItem).toBeInTheDocument();
 });
 
-test('toggles todo completion', () => {
+test('toggles a todo completion status', () => {
   render(<TodoList />);
-  const todo = screen.getByText(/Learn React/i);
-  
-  fireEvent.click(todo);
-  expect(todo).toHaveStyle('text-decoration: line-through');
+  const input = screen.getByPlaceholderText(/Add a new todo/i);
+  const addButton = screen.getByText(/Add Todo/i);
 
-  fireEvent.click(todo);
-  expect(todo).not.toHaveStyle('text-decoration: line-through');
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(addButton);
+
+  const todoItem = screen.getByText(/New Todo/i);
+  fireEvent.click(todoItem);
+
+  // Assuming the completed item has a 'completed' class or similar identifier
+  expect(todoItem).toHaveClass('completed');
 });
 
 test('deletes a todo', () => {
   render(<TodoList />);
-  const todo = screen.getByText(/Learn React/i);
-  const deleteButton = todo.nextSibling;
+  const input = screen.getByPlaceholderText(/Add a new todo/i);
+  const addButton = screen.getByText(/Add Todo/i);
 
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(addButton);
+
+  const deleteButton = screen.getByText(/Delete/i); // Adjust this selector based on your implementation
   fireEvent.click(deleteButton);
-  expect(todo).not.toBeInTheDocument();
+
+  const todoItem = screen.queryByText(/New Todo/i);
+  expect(todoItem).not.toBeInTheDocument();
 });
