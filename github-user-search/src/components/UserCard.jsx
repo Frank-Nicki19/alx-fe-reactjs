@@ -1,8 +1,16 @@
 function UserCard({ user }) {
     return (
       <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
-        <img src={user.avatar_url} alt={user.login} className="w-24 h-24 rounded-full mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-center">{user.name || user.login}</h2>
+        {/* Display user's avatar */}
+        <img
+          src={user.avatar_url}
+          alt={user.login}
+          className="w-24 h-24 rounded-full mx-auto mb-4"
+        />
+        {/* Display user's name or login */}
+        <h2 className="text-xl font-semibold text-center">
+          {user.name || user.login}
+        </h2>
         <p className="text-center text-blue-500 mt-2">
           <a href={user.html_url} target="_blank" rel="noopener noreferrer">
             View GitHub Profile

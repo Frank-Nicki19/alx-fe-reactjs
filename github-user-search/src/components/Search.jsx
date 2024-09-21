@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { fetchUserData } from '../services/githubService';
+import UserCard from './UserCard'; // Ensure this is imported to display user details
 
-function SearchBar({ setUserData }) {
-  const [username, setUsername] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+function SearchBar() {
+  const [username, setUsername] = useState(''); // State to capture input value
+  const [userData, setUserData] = useState(null); // State to store fetched user data
+  const [loading, setLoading] = useState(false); // State to handle loading
+  const [error, setError] = useState(''); // State to handle errors
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,9 +16,9 @@ function SearchBar({ setUserData }) {
 
     try {
       const data = await fetchUserData(username);
-      setUserData(data);
+      setUserData(data); // Set user data to state
     } catch (err) {
-      setError('Looks like we can’t find the user.');
+      setError('Looks like we can’t find the user'); // Set error message on failure
     } finally {
       setLoading(false);
     }
@@ -42,8 +44,10 @@ function SearchBar({ setUserData }) {
         </button>
       </form>
 
+      {/* Display loading, error, or user data based on state */}
       {loading && <p className="text-center text-gray-500">Loading...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
+      {userData && <UserCard user={userData} />}
     </div>
   );
 }

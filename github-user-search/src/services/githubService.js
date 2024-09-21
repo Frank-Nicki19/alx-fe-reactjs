@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const GITHUB_API_URL = import.meta.env.VITE_GITHUB_API_URL;
+const GITHUB_API_URL = 'https://api.github.com'; // Ensure this is correct
 
 // Function to fetch user data based on username
 export const fetchUserData = async (username) => {
