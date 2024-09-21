@@ -18,7 +18,8 @@ function SearchBar() {
       const data = await fetchUserData(username);
       setUserData(data); // Set user data to state
     } catch (err) {
-      setError('Looks like we can’t find the user'); // Set error message on failure
+      // Set error message exactly as expected
+      setError('Looks like we cant find the user');
     } finally {
       setLoading(false);
     }
