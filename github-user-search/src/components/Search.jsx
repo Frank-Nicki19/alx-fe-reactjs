@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { fetchUserData } from '../services/githubService';
-import UserCard from './UserCard'; // Ensure this is imported to display user details
 
 function SearchBar() {
   const [username, setUsername] = useState(''); // State to capture input value
@@ -48,7 +47,23 @@ function SearchBar() {
       {/* Display loading, error, or user data based on state */}
       {loading && <p className="text-center text-gray-500">Loading...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
-      {userData && <UserCard user={userData} />}
+      {userData && (
+        <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
+          {/* Display user's avatar */}
+          <img
+            src={userData.avatar_url} // Access `avatar_url` directly here
+            alt={userData.login}       // Use `login` for the alt text
+            className="w-24 h-24 rounded-full mx-auto mb-4"
+          />
+          {/* Display user's login name */}
+          <h2 className="text-xl font-semibold text-center">{userData.login}</h2>
+          <p className="text-center text-blue-500 mt-2">
+            <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+              View GitHub Profile
+            </a>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
